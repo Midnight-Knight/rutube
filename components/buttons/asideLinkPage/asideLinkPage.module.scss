@@ -1,0 +1,50 @@
+.AsideLinkPage
+{
+  width: 100%;
+  height: 54px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 8px 24px;
+  gap: 24px;
+  border-radius: 0 6px 6px 0;
+  transition: 300ms background-color;
+  > img
+  {
+    width: 24px;
+    height: 24px;
+  }
+  > h5
+  {
+    font-size: 14px;
+    font-weight: normal;
+    transition: 300ms color;
+  }
+}
+
+.Active
+{
+  background-color: var(--active-base);
+  > h5
+  {
+    color: var(--text-base);
+  }
+}
+
+.Offline
+{
+  background-color: var(--background-aside);
+  > h5
+  {
+    color: var(--text-secondary);
+  }
+  &:hover
+  {
+    background-color: var(--active-base);
+    > h5
+    {
+      color: var(--text-base);
+    }
+  }
+}
