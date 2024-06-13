@@ -11,11 +11,13 @@ export default function Home() {
               <LinkPage link={"/video_add"} text={"Пополнение базы"}/>
               <LinkPage link={"/video_moderation"} text={"Модерация"}/>
           </Row>
-          <Heading title={"Аудио"} text={null}/>
-          <Row>
-              <LinkPage link={"/audio_add"} text={"Пополнение базы"}/>
-              <LinkPage link={"/audio_moderation"} text={"Модерация"}/>
-          </Row>
+          <div style={{height: '100%'}}/>
       </main>
   );
 }
+
+/*<Heading title={"Аудио"} text={null}/>
+          <Row>
+              <LinkPage link={"/audio_add"} text={"Пополнение базы"}/>
+              <LinkPage link={"/audio_moderation"} text={"Модерация"}/>
+          </Row>*/

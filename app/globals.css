@@ -3,11 +3,24 @@
   --background-base: #14191f;
   --active-base: #29333d;
   --active-blue: #1eabe9;
+  --hover-blue: #008dcc;
   --blue-base: #00a1e7;
   --red-base: #f41240;
+  --hover-red: #bd0027;
   --text-base: #ffffff;
   --text-secondary: #A7B4C4;
   --text-blue: #1EABE9;
+  --status-blue: #1eabe9;
+  --status-green: #2ce91e;
+  --status-yellow: #e9c71e;
+  --status-red: #e91e1e;
+  --status-gray: #8d8d8d;
+}
+
+button,
+button:active,
+button:focus  {
+  border:none;
 }
 
 * {

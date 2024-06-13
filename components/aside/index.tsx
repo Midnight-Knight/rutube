@@ -13,10 +13,13 @@ export default function Aside() {
                 <AsideLinkPage link={'/'} text={'Главная'} svg={AppPageSvg}/>
                 <AsideLinkPage link={'/video_add'} text={'Видео пополнение базы'} svg={AddBaseSvg}/>
                 <AsideLinkPage link={'/video_moderation'} text={'Видео модерация'} svg={VideoSvg}/>
-                <AsideLinkPage link={'/audio_add'} text={'Аудио пополнение базы'} svg={AddBaseSvg}/>
-                <AsideLinkPage link={'/audio_moderation'} text={'Аудио модерация'} svg={AudioSvg}/>
             </AsideColumn>
             <h6>Команда: RealityFirst</h6>
         </aside>
     )
 }
+
+/*
+<AsideLinkPage link={'/audio_add'} text={'Аудио пополнение базы'} svg={AddBaseSvg}/>
+                <AsideLinkPage link={'/audio_moderation'} text={'Аудио модерация'} svg={AudioSvg}/>
+ */

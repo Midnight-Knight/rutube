@@ -1,5 +1,8 @@
 import styles from "./../page.module.css";
+import DownloadManager from "@/manager/downloadManager";
 
 export default function Page() {
-    return <main className={styles.main}><h1>Audio Add</h1></main>
+    return <main className={styles.main}>
+        <DownloadManager typeFile={"audio"}/>
+    </main>
 }
