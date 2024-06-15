@@ -1,10 +1,8 @@
 'use client';
-
 import { useEffect, useState } from 'react';
 import Row from '@/components/row';
 import Download from '@/components/download';
 import VideoPlayer from '@/components/videoPlayer';
-import AudioPlayer from '@/components/audioPlayer';
 import StatusBlock from '@/components/statusBlock';
 import VideoDownload from '@/api/download/video';
 import Modal from '@/components/modal';
@@ -18,18 +16,12 @@ export default function DownloadManager() {
   const [stagesFile, setStagesFile] = useState<number>(0);
   const [stagesServer, setStagesServer] = useState<number>(0);
   const [stagesAi, setStagesAi] = useState<number>(0);
-  const [socket, setSocket] = useState<WebSocket | null>(null);
   const [id, setId] = useState<number | null>(null);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     setStagesFile(3);
-    return () => {
-      if (socket) {
-        socket.close();
-      }
-    };
   }, []);
 
   useEffect(() => {
@@ -52,7 +44,7 @@ export default function DownloadManager() {
   useEffect(() => {
     if (id) {
       setStagesAi(2);
-      VideoStatus(setSocket, id, setStagesAi, setError, setStagesServer);
+      VideoStatus(id, setStagesAi, setError, setStagesServer);
     }
   }, [id]);
 
@@ -89,12 +81,17 @@ export default function DownloadManager() {
         deleteFunction={() => deleteFile()}
         file={file ? file.name : null}
       />
-      {modalOpen && stagesFile === 3 && (
+      {
+        // prettier-ignore
+        (modalOpen && stagesFile === 3) && (
         <Modal closeFunc={setModalOpen}>
           <ErrorFile error={error ? error.message : 'Неизвестная ошибка'} close={() => setModalOpen(false)} />
         </Modal>
-      )}
-      {modalOpen && (stagesFile === 1 || stagesServer === 1 || stagesAi === 1) && (
+      )
+      }
+      {
+        // prettier-ignore
+        (modalOpen && (stagesFile === 1 || stagesServer === 1 || stagesAi === 1)) && (
         <Modal closeFunc={setModalOpen}>
           <ErrorModal
             close={() => setModalOpen(false)}
@@ -111,12 +108,16 @@ export default function DownloadManager() {
             error={error ? error.message : 'Неизвестная ошибка'}
           />
         </Modal>
-      )}
-      {modalOpen && stagesAi === 4 && (
+      )
+      }
+      {
+        // prettier-ignore
+        (modalOpen && stagesAi === 4) && (
         <Modal closeFunc={setModalOpen}>
           <DownloadModal download={true} close={() => setModalOpen(false)} />
         </Modal>
-      )}
+      )
+      }
     </Row>
   );
 }

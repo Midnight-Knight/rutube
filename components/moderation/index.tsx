@@ -58,7 +58,7 @@ export default function Moderation({
         <article>
           <h3>Файл</h3>
           <h4>{file ? file : 'Не загружен'}</h4>
-          <h4>Количество нарушений: {data ? data : 'Файл ещё не прошёл проверку'}</h4>
+          <h4>Количество нарушений: {data !== null ? data : 'Файл ещё не прошёл проверку'}</h4>
         </article>
         <DeleteButton onClick={deleteFunction} active={(stagesServer !== 0 && stagesAi === 0) || (stagesServer !== 0 && stagesAi === 4)} />
       </div>

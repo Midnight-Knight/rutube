@@ -9,12 +9,9 @@ export default async function VideoDownload(
   try {
     console.log('start download');
     const formData = new FormData();
-    formData.append('video', file, file.name);
-    let response = await fetch(HTTP_VIDEO_DOWNLOAD, {
+    formData.append('video', file);
+    let response = await fetch(HTTP_VIDEO_DOWNLOAD + '?title=' + file.name, {
       method: 'POST',
-      headers: {
-        ContentType: 'multipart/form-data',
-      },
       body: formData,
     });
 

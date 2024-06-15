@@ -1,55 +1,50 @@
 import { WS_VIDEO_DOWNLOAD } from '@/consts/api';
 
-export default async function VideoStatus(
-  ws: (value: WebSocket | null) => void,
+let intervalId: any;
+
+async function checkVideoState(
   id: number,
   statusStagesAi: (value: number) => void,
   setError: (Value: Error) => void,
   statusStagesServer: (value: number) => void,
 ) {
-  const newSocket = new WebSocket(WS_VIDEO_DOWNLOAD + '?fileId=' + id);
-  ws(newSocket);
-
-  newSocket.onopen = () => {
-    console.log('WebSocket opened');
-  };
-
-  newSocket.onmessage = (event) => {
-    const message = JSON.parse(event.data);
+  try {
+    // Выполняем запрос на сервер
+    let response = await fetch(WS_VIDEO_DOWNLOAD + '?fileId=' + id, {
+      method: 'POST',
+      body: JSON.stringify({ message: 'hello world!' }),
+    });
+    console.log(await response);
+    const message = await response.json();
+    console.log(message);
     if (message.videoState) {
       if (message.videoState === 6) {
         statusStagesAi(4);
+        clearInterval(intervalId);
       } else if (message.videoState === 3) {
         setError(new Error(`Верификация завершена с ошибками`));
         statusStagesAi(1);
         statusStagesServer(1);
-        newSocket.close();
-        ws(null);
         console.log(`Верификация завершена с ошибками`);
+        clearInterval(intervalId);
       }
     }
-  };
-
-  newSocket.onerror = (error) => {
+  } catch (error) {
+    console.error('Error fetching video state:', error);
+    statusStagesServer(1);
     if (error instanceof Error) {
-      ws(null);
       setError(error);
-      statusStagesAi(1);
-      statusStagesServer(1);
-      console.log('WebSocket error:', error);
     }
-  };
+    clearInterval(intervalId);
+  }
+}
 
-  // Закрытие WebSocket подключения
-  newSocket.onclose = (event) => {
-    if (event.code === 1006) {
-      const error = new Error('WebSocket connection closed unexpectedly');
-      setError(error);
-      statusStagesAi(1);
-      statusStagesServer(1);
-      console.log('WebSocket connection closed unexpectedly:', event);
-    } else {
-      console.log('WebSocket connection closed:', event);
-    }
-  };
+export default async function VideoStatus(
+  id: number,
+  statusStagesAi: (value: number) => void,
+  setError: (Value: Error) => void,
+  statusStagesServer: (value: number) => void,
+) {
+  console.log(WS_VIDEO_DOWNLOAD);
+  intervalId = setInterval(() => checkVideoState(id, statusStagesAi, setError, statusStagesServer), 1000);
 }

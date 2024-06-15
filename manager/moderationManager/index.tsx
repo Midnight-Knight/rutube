@@ -5,20 +5,22 @@ import { useEffect, useState } from 'react';
 import VideoPlayer from '@/components/videoPlayer';
 import ModerationDownload from '@/api/download/moderation';
 import Modal from '@/components/modal';
-import VideoStatus from '@/api/status/video';
+import ModerationStatus from '@/api/status/moderation';
 import ErrorModal from '@/components/modal/errorModal';
 import DownloadModal from '@/components/modal/downloadModal';
 import ErrorFile from '@/components/modal/errorFile';
 import Moderation from '@/components/moderation';
 import { TypeData } from '@/types';
+import NoDownload from '@/components/modal/NoDownload';
+import FirstModeration from '@/components/modal/firstModeration';
 
 export default function ModerationManager() {
+  const [storage, setStorage] = useState<boolean>(false);
   const [file, setFile] = useState<File | null>(null);
   const [stagesFile, setStagesFile] = useState<number>(0);
   const [stagesServer, setStagesServer] = useState<number>(0);
   const [stagesAi, setStagesAi] = useState<number>(0);
   const [stagesModeration, setStagesModeration] = useState<number>(0);
-  const [socket, setSocket] = useState<WebSocket | null>(null);
   const [id, setId] = useState<number | null>(null);
   const [data, setData] = useState<TypeData | null>(null);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
@@ -26,11 +28,12 @@ export default function ModerationManager() {
 
   useEffect(() => {
     setStagesFile(3);
-    return () => {
-      if (socket) {
-        socket.close();
-      }
-    };
+    const storedData = localStorage.getItem('modalNoFirst');
+    const parsedData = storedData === 'true';
+    setStorage(!parsedData);
+    if (!parsedData) {
+      setModalOpen(true);
+    }
   }, []);
 
   useEffect(() => {
@@ -53,7 +56,7 @@ export default function ModerationManager() {
   useEffect(() => {
     if (id) {
       setStagesAi(2);
-      VideoStatus(setSocket, id, setStagesAi, setError, setStagesServer);
+      ModerationStatus(id, setStagesAi, setError, setStagesServer, setData);
     }
   }, [id]);
 
@@ -82,6 +85,19 @@ export default function ModerationManager() {
     setStagesFile(3);
     setStagesServer(0);
     setStagesAi(0);
+    setStagesModeration(0);
+    setData(null);
+  }
+
+  function closeFirst() {
+    setStorage(true);
+    setModalOpen(false);
+  }
+
+  function NoFirst() {
+    setStorage(true);
+    setModalOpen(false);
+    localStorage.setItem('modalNoFirst', 'true');
   }
 
   return (
@@ -97,14 +113,27 @@ export default function ModerationManager() {
         deleteFunction={() => deleteFile()}
         file={file ? file.name : null}
         stagesModeration={stagesModeration}
-        data={data ? data.length : null}
+        data={data !== null ? data.length : null}
       />
-      {modalOpen && stagesFile === 3 && (
+      {
+        // prettier-ignore
+        (storage && modalOpen) && (
+        <Modal closeFunc={setModalOpen}>
+          <FirstModeration set={() => NoFirst()} close={() => closeFirst()} />
+        </Modal>
+      )
+      }
+      {
+        // prettier-ignore
+        (modalOpen && stagesFile === 1) && (
         <Modal closeFunc={setModalOpen}>
           <ErrorFile error={error ? error.message : 'Неизвестная ошибка'} close={() => setModalOpen(false)} />
         </Modal>
-      )}
-      {modalOpen && (stagesFile === 1 || stagesServer === 1 || stagesAi === 1) && (
+      )
+      }
+      {
+        // prettier-ignore
+        (modalOpen && (stagesFile === 1 || stagesServer === 1 || stagesAi === 1)) && (
         <Modal closeFunc={setModalOpen}>
           <ErrorModal
             close={() => setModalOpen(false)}
@@ -121,12 +150,24 @@ export default function ModerationManager() {
             error={error ? error.message : 'Неизвестная ошибка'}
           />
         </Modal>
-      )}
-      {modalOpen && stagesAi === 4 && (
+      )
+      }
+      {
+        // prettier-ignore
+        (modalOpen && stagesModeration === 4) && (
         <Modal closeFunc={setModalOpen}>
           <DownloadModal download={true} close={() => setModalOpen(false)} />
         </Modal>
-      )}
+      )
+      }
+      {
+        // prettier-ignore
+        (modalOpen && stagesModeration === 1) && (
+        <Modal closeFunc={setModalOpen}>
+          <NoDownload close={() => setModalOpen(false)} />
+        </Modal>
+      )
+      }
     </Row>
   );
 }

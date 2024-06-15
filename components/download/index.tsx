@@ -1,10 +1,7 @@
 import Image from 'next/image';
 import mp4Svg from '@/public/mp4-01.svg';
-import mp3Svg from '@/public/mp3-01.svg';
 import Style from './download.module.scss';
 import { ChangeEvent } from 'react';
-import { Simulate } from 'react-dom/test-utils';
-import error = Simulate.error;
 
 type Props = {
   setFile: (value: File | null) => void;
