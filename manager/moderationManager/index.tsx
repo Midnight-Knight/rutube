@@ -1,25 +1,26 @@
 'use client';
-
-import { useEffect, useState } from 'react';
 import Row from '@/components/row';
 import Download from '@/components/download';
+import { useEffect, useState } from 'react';
 import VideoPlayer from '@/components/videoPlayer';
-import AudioPlayer from '@/components/audioPlayer';
-import StatusBlock from '@/components/statusBlock';
-import VideoDownload from '@/api/download/video';
+import ModerationDownload from '@/api/download/moderation';
 import Modal from '@/components/modal';
 import VideoStatus from '@/api/status/video';
 import ErrorModal from '@/components/modal/errorModal';
 import DownloadModal from '@/components/modal/downloadModal';
 import ErrorFile from '@/components/modal/errorFile';
+import Moderation from '@/components/moderation';
+import { TypeData } from '@/types';
 
-export default function DownloadManager() {
+export default function ModerationManager() {
   const [file, setFile] = useState<File | null>(null);
   const [stagesFile, setStagesFile] = useState<number>(0);
   const [stagesServer, setStagesServer] = useState<number>(0);
   const [stagesAi, setStagesAi] = useState<number>(0);
+  const [stagesModeration, setStagesModeration] = useState<number>(0);
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const [id, setId] = useState<number | null>(null);
+  const [data, setData] = useState<TypeData | null>(null);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
 
@@ -45,7 +46,7 @@ export default function DownloadManager() {
       setId(null);
       setStagesAi(0);
       setStagesServer(2);
-      VideoDownload(file, setId, setStagesServer, setError);
+      ModerationDownload(file, setId, setStagesServer, setError);
     }
   }
 
@@ -55,6 +56,14 @@ export default function DownloadManager() {
       VideoStatus(setSocket, id, setStagesAi, setError, setStagesServer);
     }
   }, [id]);
+
+  useEffect(() => {
+    if (data && data.length === 0) {
+      setStagesModeration(4);
+    } else if (data && data.length !== 0) {
+      setStagesModeration(1);
+    }
+  }, [data]);
 
   useEffect(() => {
     if (stagesServer === 1 || stagesAi === 1 || stagesAi === 4 || error) {
@@ -78,8 +87,7 @@ export default function DownloadManager() {
   return (
     <Row heightAuto={true}>
       {file ? <VideoPlayer file={file} /> : <Download setFile={setFile} setError={setError} />}
-      <StatusBlock
-        titleAddBase={true}
+      <Moderation
         stagesFile={stagesFile}
         stagesServer={stagesServer}
         stagesAi={stagesAi}
@@ -88,6 +96,8 @@ export default function DownloadManager() {
         }}
         deleteFunction={() => deleteFile()}
         file={file ? file.name : null}
+        stagesModeration={stagesModeration}
+        data={data ? data.length : null}
       />
       {modalOpen && stagesFile === 3 && (
         <Modal closeFunc={setModalOpen}>

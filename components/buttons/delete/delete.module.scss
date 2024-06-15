@@ -1,0 +1,38 @@
+.Delete
+{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  padding: 12px 16px;
+  transition: 300ms background-color;
+  > h5
+  {
+    font-size: 13px;
+    font-weight: bold;
+  }
+}
+
+.Off
+{
+  background-color: var(--active-base);
+  > h5
+  {
+    color: var(--text-secondary);
+  }
+}
+
+.Active
+{
+  cursor: pointer;
+  background-color: var(--red-base);
+  > h5
+  {
+    color: var(--text-base);
+  }
+  &:hover
+  {
+    background-color: var(--hover-red);
+  }
+}

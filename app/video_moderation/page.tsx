@@ -1,5 +1,6 @@
 import styles from "./../page.module.css";
+import ModerationManager from "@/manager/moderationManager";
 
 export default function Page() {
-    return <main className={styles.main}><h1>Video Moderation</h1></main>
+    return <main className={styles.main}><ModerationManager/></main>
 }

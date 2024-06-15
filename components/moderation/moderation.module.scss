@@ -1,4 +1,4 @@
-.StatusBlock
+.Moderation
 {
   border-radius: 12px;
   background-color: var(--background-aside);
@@ -39,7 +39,7 @@
         color: var(--text-secondary);
         font-size: 16px;
         font-weight: normal;
-        word-break: break-all;
+        white-space: break-spaces;
       }
     }
     > h3

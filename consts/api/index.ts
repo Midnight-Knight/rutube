@@ -1,8 +1,5 @@
-export const WS_VIDEO_DOWNLOAD = process.env.WS_VIDEO_DOWNLOAD || "ws://localhost:8080/video/status";
-export const HTTP_VIDEO_DOWNLOAD = process.env.HTTP_VIDEO_DOWNLOAD || "http://localhost:8080/video/download";
-export const WS_AUDIO_DOWNLOAD = process.env.WS_AUDIO_DOWNLOAD || "ws://localhost:8080/audio/status";
-export const HTTP_AUDIO_DOWNLOAD = process.env.HTTP_AUDIO_DOWNLOAD || "http://localhost:8080/audio/download";
-export const WS_VIDEO_MODERATION = process.env.WS_VIDEO_MODERATION || "ws://localhost:8080/video/moderation_status";
-export const HTTP_VIDEO_MODERATION = process.env.HTTP_VIDEO_MODERATION || "http://localhost:8080/video/moderation";
-export const WS_AUDIO_MODERATION = process.env.WS_AUDIO_MODERATION || "ws://localhost:8080/audio/moderation_status";
-export const HTTP_AUDIO_MODERATION = process.env.HTTP_AUDIO_MODERATION || "http://localhost:8080/audio/moderation";
+export const WS_VIDEO_DOWNLOAD = process.env.WS_VIDEO_DOWNLOAD || 'wss://75a8-109-252-24-49.ngrok-free.app/api/status/getNotifications';
+export const HTTP_VIDEO_DOWNLOAD = process.env.HTTP_VIDEO_DOWNLOAD || 'https://75a8-109-252-24-49.ngrok-free.app/api/videos/download';
+export const WS_VIDEO_MODERATION = process.env.WS_VIDEO_MODERATION || 'wss://75a8-109-252-24-49.ngrok-free.app/api/status/getNotifications';
+export const HTTP_VIDEO_MODERATION = process.env.HTTP_VIDEO_MODERATION || 'https://75a8-109-252-24-49.ngrok-free.app/api/videos/verify';
+export const HTTP_VIDEO_VERIFY = process.env.HTTP_VIDEO_VERIFY || 'https://75a8-109-252-24-49.ngrok-free.app/api/status/currentStatus';

@@ -1,13 +1,19 @@
-import { WS_VIDEO_DOWNLOAD } from '@/consts/api';
+import { WS_VIDEO_MODERATION } from '@/consts/api';
+import { TypeData } from '@/types';
+
+async function dataFetch(setData: (value: TypeData | null) => void, id: number) {
+  const fetchData = await fetch(`https://${WS_VIDEO_MODERATION}`);
+}
 
 export default async function VideoStatus(
   ws: (value: WebSocket | null) => void,
-  id: number,
   statusStagesAi: (value: number) => void,
   setError: (Value: Error) => void,
   statusStagesServer: (value: number) => void,
+  id: number,
+  setData: (value: TypeData | null) => void,
 ) {
-  const newSocket = new WebSocket(WS_VIDEO_DOWNLOAD + '?fileId=' + id);
+  const newSocket = new WebSocket(WS_VIDEO_MODERATION);
   ws(newSocket);
 
   newSocket.onopen = () => {

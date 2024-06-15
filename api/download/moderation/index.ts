@@ -1,6 +1,6 @@
-import { HTTP_VIDEO_DOWNLOAD } from '@/consts/api/index';
+import { HTTP_VIDEO_DOWNLOAD, HTTP_VIDEO_MODERATION } from '@/consts/api/index';
 
-export default async function VideoDownload(
+export default async function ModerationDownload(
   file: File,
   id: (value: number) => void,
   statusStagesServer: (value: number) => void,
@@ -12,9 +12,6 @@ export default async function VideoDownload(
     formData.append('video', file, file.name);
     let response = await fetch(HTTP_VIDEO_DOWNLOAD, {
       method: 'POST',
-      headers: {
-        ContentType: 'multipart/form-data',
-      },
       body: formData,
     });
 
