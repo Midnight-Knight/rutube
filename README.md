@@ -13,10 +13,10 @@ npm run i
 // Пример
 const nextConfig = {
     env: {
-        HTTP_VIDEO_DOWNLOAD: 'https://75a8-109-252-24-49.ngrok-free.app/api/videos/download', // адрес пополнения БД без модерации
-        WS_VIDEO_DOWNLOAD: 'https://75a8-109-252-24-49.ngrok-free.app/api/status/currentStatus', // адрес проверки статуса пополнения
-        HTTP_VIDEO_MODERATION: 'https://75a8-109-252-24-49.ngrok-free.app/api/videos/verify', // адрес пополнения БД с модерацией
-        WS_VIDEO_MODERATION: 'https://75a8-109-252-24-49.ngrok-free.app/api/status/getNotifications', // адрес проверки статуса модерации
+        HTTP_VIDEO_DOWNLOAD: 'http://caddy:5291/api/videos/download', // адрес пополнения БД без модерации
+        WS_VIDEO_DOWNLOAD: 'http://caddy:5291/api/status/currentStatus', // адрес проверки статуса пополнения
+        HTTP_VIDEO_MODERATION: 'http://caddy:5291/api/videos/verify', // адрес пополнения БД с модерацией
+        WS_VIDEO_MODERATION: 'http://caddy:5291/api/status/currentStatus', // адрес проверки статуса модерации
     }
 };
 ```

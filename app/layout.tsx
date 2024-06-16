@@ -3,7 +3,6 @@ import { Open_Sans } from 'next/font/google';
 import './globals.css';
 import Aside from '@/components/aside';
 import Header from '@/components/header';
-import { AntdRegistry } from '@ant-design/nextjs-registry';
 
 const inter = Open_Sans({ subsets: ['cyrillic', 'latin'] });
 
@@ -22,7 +21,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Header />
         <Aside />
-        <AntdRegistry>{children}</AntdRegistry>
+        {children}
       </body>
     </html>
   );
