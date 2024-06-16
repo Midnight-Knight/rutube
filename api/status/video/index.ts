@@ -30,7 +30,7 @@ async function checkVideoState(
       }
     }
   } catch (error) {
-    console.error('Error fetching video state:', error);
+    console.error('Error fetching [video] state:', error);
     statusStagesServer(1);
     if (error instanceof Error) {
       setError(error);

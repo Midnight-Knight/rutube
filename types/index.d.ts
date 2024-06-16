@@ -1,7 +1,8 @@
 export type TypeData = {
-  name: string;
-  startPirate: number;
-  endPirate: number;
-  startOrig: number;
-  endOrig: number;
+  matchTitle: string;
+  url: string;
+  startTime: number;
+  endTime: number;
+  startTimeMatch: number;
+  endTimeMatch: number;
 }[];

@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Инструкция
 
-## Getting Started
-
-First, run the development server:
+Первый запуск
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Важно, укажите зависимости в файле next.config.mjs в env
+# Установка зависимостей
+npm run i
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Зависимости (next.config.mjs)
+```js
+// Пример
+const nextConfig = {
+    env: {
+        HTTP_VIDEO_DOWNLOAD: 'https://75a8-109-252-24-49.ngrok-free.app/api/videos/download', // адрес пополнения БД без модерации
+        WS_VIDEO_DOWNLOAD: 'https://75a8-109-252-24-49.ngrok-free.app/api/status/currentStatus', // адрес проверки статуса пополнения
+        HTTP_VIDEO_MODERATION: 'https://75a8-109-252-24-49.ngrok-free.app/api/videos/verify', // адрес пополнения БД с модерацией
+        WS_VIDEO_MODERATION: 'https://75a8-109-252-24-49.ngrok-free.app/api/status/getNotifications', // адрес проверки статуса модерации
+    }
+};
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# Запуск в dev режиме
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+# Сборка приложения
+npm run build
+# Запуск сборки
+npm run start
+```
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+По умолчанию сайт должен открыть на [http://localhost:3000](http://localhost:3000), однако в случае, если порт занят, то он моет занять порт на 1 выше (пример: если порт 3000 занят, то он займёт 3001).

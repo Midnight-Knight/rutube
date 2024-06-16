@@ -2,6 +2,7 @@
 import Style from './moderation.module.scss';
 import DownloadButton from '@/components/buttons/download';
 import DeleteButton from '@/components/buttons/delete';
+import classNames from 'classnames';
 
 type Props = {
   stagesFile: number;
@@ -12,6 +13,7 @@ type Props = {
   deleteFunction: () => void;
   file: null | string;
   data: null | number;
+  height?: boolean;
 };
 
 export default function Moderation({
@@ -23,6 +25,7 @@ export default function Moderation({
   file,
   stagesModeration,
   data,
+  height = false,
 }: Props) {
   const color = {
     0: Style.GrayStatus,
@@ -33,7 +36,7 @@ export default function Moderation({
   };
 
   return (
-    <article className={Style.Moderation}>
+    <article className={classNames(Style.Moderation, height && Style.Height108)}>
       <div>
         <h3>Статус модерации контента</h3>
         <div className={Style.StatusLine}>

@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Row from '@/components/row';
 import Download from '@/components/download';
 import VideoPlayer from '@/components/videoPlayer';
@@ -19,6 +19,7 @@ export default function DownloadManager() {
   const [id, setId] = useState<number | null>(null);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     setStagesFile(3);
@@ -69,7 +70,7 @@ export default function DownloadManager() {
 
   return (
     <Row heightAuto={true}>
-      {file ? <VideoPlayer file={file} /> : <Download setFile={setFile} setError={setError} />}
+      {file ? <VideoPlayer ref={videoRef} file={file} status={false} /> : <Download setFile={setFile} setError={setError} />}
       <StatusBlock
         titleAddBase={true}
         stagesFile={stagesFile}
