@@ -10,8 +10,8 @@ export default function Aside() {
     <aside className={Style.Aside}>
       <AsideColumn>
         <AsideLinkPage link={'/'} text={'Главная'} svg={AppPageSvg} />
-        <AsideLinkPage link={'/video_add'} text={'Видео пополнение базы'} svg={AddBaseSvg} />
-        <AsideLinkPage link={'/video_moderation'} text={'Видео модерация'} svg={VideoSvg} />
+        <AsideLinkPage link={'/video_add'} text={'Пополнение базы'} svg={AddBaseSvg} />
+        <AsideLinkPage link={'/video_moderation'} text={'Модерация'} svg={VideoSvg} />
       </AsideColumn>
       <h6>Команда: RealityFirst</h6>
     </aside>
