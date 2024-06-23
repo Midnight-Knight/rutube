@@ -50,10 +50,17 @@ export default function DownloadManager() {
   }, [id]);
 
   useEffect(() => {
-    if (stagesServer === 1 || stagesAi === 1 || stagesAi === 4 || error) {
+    if (stagesFile === 1) {
+      setError(null);
+      setStagesFile(3);
+    }
+  }, [stagesFile]);
+
+  useEffect(() => {
+    if (stagesFile === 1 || stagesServer === 1 || stagesAi === 1 || stagesAi === 4) {
       setModalOpen(true);
     }
-  }, [stagesServer, stagesAi, error]);
+  }, [stagesFile, stagesServer, stagesAi]);
 
   function repeat() {
     setModalOpen(false);
@@ -70,7 +77,11 @@ export default function DownloadManager() {
 
   return (
     <Row heightAuto={true}>
-      {file ? <VideoPlayer ref={videoRef} file={file} status={false} /> : <Download setFile={setFile} setError={setError} />}
+      {file ? (
+        <VideoPlayer ref={videoRef} file={file} status={false} />
+      ) : (
+        <Download setFile={setFile} setError={setError} setStagesFile={setStagesFile} />
+      )}
       <StatusBlock
         titleAddBase={true}
         stagesFile={stagesFile}

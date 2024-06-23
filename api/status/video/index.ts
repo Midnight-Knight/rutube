@@ -46,5 +46,5 @@ export default async function VideoStatus(
   statusStagesServer: (value: number) => void,
 ) {
   console.log(WS_VIDEO_DOWNLOAD);
-  intervalId = setInterval(() => checkVideoState(id, statusStagesAi, setError, statusStagesServer), 1000);
+  intervalId = setInterval(() => checkVideoState(id, statusStagesAi, setError, statusStagesServer), 5000);
 }

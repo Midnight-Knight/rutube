@@ -89,7 +89,7 @@ export default async function ModerationStatus(
   setViolations: (value: number | null) => void,
 ) {
   console.log(WS_VIDEO_MODERATION);
-  intervalId = setInterval(() => checkVideoModerationState(id, statusStagesAi, setError, statusStagesServer, setData, setViolations), 1000);
+  intervalId = setInterval(() => checkVideoModerationState(id, statusStagesAi, setError, statusStagesServer, setData, setViolations), 5000);
 }
 
 /*

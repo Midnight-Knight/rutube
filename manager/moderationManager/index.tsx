@@ -86,10 +86,17 @@ export default function ModerationManager() {
   }, [data]);
 
   useEffect(() => {
-    if (stagesServer === 1 || stagesAi === 1 || stagesAi === 4 || error) {
+    if (stagesFile === 1) {
+      setError(null);
+      setStagesFile(3);
+    }
+  }, [stagesFile]);
+
+  useEffect(() => {
+    if (stagesFile === 1 || stagesServer === 1 || stagesAi === 1 || stagesAi === 4) {
       setModalOpen(true);
     }
-  }, [stagesServer, stagesAi, error]);
+  }, [stagesFile, stagesServer, stagesAi]);
 
   function repeat() {
     setModalOpen(false);
@@ -162,7 +169,7 @@ export default function ModerationManager() {
             <VideoPlayer ref={videoRefTwo} url={urlVideo ? urlVideo : "noVideo"} status={stagesModeration === 1} />
           </Column>
         ) : (
-          <Download setFile={setFile} setError={setError} />
+          <Download setFile={setFile} setError={setError} setStagesFile={setStagesFile} />
         ))
         }
         {stagesModeration === 1 ? (
@@ -185,7 +192,7 @@ export default function ModerationManager() {
         )}
         {
           // prettier-ignore
-          (storage && modalOpen) && (
+          (storage && modalOpen && !error) && (
                   <Modal closeFunc={setModalOpen}>
                     <FirstModeration set={() => NoFirst()} close={() => closeFirst()} />
                   </Modal>
