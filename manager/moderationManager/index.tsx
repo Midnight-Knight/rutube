@@ -41,6 +41,7 @@ export default function ModerationManager() {
   const [urlVideo, setUrlVideo] = useState<string | null>(null);
   const videoRefTwo = useRef<HTMLVideoElement>(null);
   const [violations, setViolations] = useState<number | null>(null);
+  const [duration, setDuration] = useState<number | null>(null);
 
   useEffect(() => {
     setStagesFile(3);
@@ -169,7 +170,7 @@ export default function ModerationManager() {
             <VideoPlayer ref={videoRefTwo} url={urlVideo ? urlVideo : "noVideo"} status={stagesModeration === 1} />
           </Column>
         ) : (
-          <Download setFile={setFile} setError={setError} setStagesFile={setStagesFile} />
+          <Download setFile={setFile} setError={setError} setStagesFile={setStagesFile} setDuration={setDuration} />
         ))
         }
         {stagesModeration === 1 ? (
@@ -192,7 +193,7 @@ export default function ModerationManager() {
         )}
         {
           // prettier-ignore
-          (storage && modalOpen && !error) && (
+          (storage && modalOpen && !error && stagesModeration === 0) && (
                   <Modal closeFunc={setModalOpen}>
                     <FirstModeration set={() => NoFirst()} close={() => closeFirst()} />
                   </Modal>
@@ -248,7 +249,7 @@ export default function ModerationManager() {
         // prettier-ignore
         (stagesModeration === 1 && data) &&
           <Row up={true}>
-            <Timeline data={data} clickVideo={handleSetCurrentTime} clickOriginVideo={handleSetCurrentTimeOrigin} clickOriginUrl={changeOriginalVideo} />
+            <Timeline data={data} clickVideo={handleSetCurrentTime} clickOriginVideo={handleSetCurrentTimeOrigin} clickOriginUrl={changeOriginalVideo} duration={duration ? duration : 31} />
             <Moderation
                 stagesFile={stagesFile}
                 stagesServer={stagesServer}

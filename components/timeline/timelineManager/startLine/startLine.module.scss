@@ -1,0 +1,27 @@
+.StartLine
+{
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  > div
+  {
+    width: 100%;
+    height: 8px;
+    border-radius: 8px 0 0 8px;
+    background-color: var(--blue-base);
+  }
+  > article
+  {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    > p
+    {
+      color: var(--text-base);
+    }
+  }
+}

@@ -6,10 +6,11 @@ import { ChangeEvent, useState } from 'react';
 type Props = {
   setFile: (value: File | null) => void;
   setError: (error: Error | null) => void;
+  setDuration: (value: number | null) => void;
   setStagesFile: (value: number) => void;
 };
 
-export default function Download({ setFile, setError, setStagesFile }: Props) {
+export default function Download({ setFile, setError, setStagesFile, setDuration }: Props) {
   const [key, setKey] = useState(0);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -35,6 +36,7 @@ export default function Download({ setFile, setError, setStagesFile }: Props) {
               setError(new Error('Продолжительность видео должна быть не менее 31 секунды'));
               setKey(key + 1);
             } else {
+              setDuration(videoElement.duration);
               setFile(selectedFile);
               setError(null);
             }

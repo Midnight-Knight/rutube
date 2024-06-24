@@ -20,6 +20,7 @@ export default function DownloadManager() {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [duration, setDuration] = useState<number | null>(null);
 
   useEffect(() => {
     setStagesFile(3);
@@ -80,7 +81,7 @@ export default function DownloadManager() {
       {file ? (
         <VideoPlayer ref={videoRef} file={file} status={false} />
       ) : (
-        <Download setFile={setFile} setError={setError} setStagesFile={setStagesFile} />
+        <Download setFile={setFile} setError={setError} setStagesFile={setStagesFile} setDuration={setDuration} />
       )}
       <StatusBlock
         titleAddBase={true}

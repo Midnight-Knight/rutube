@@ -21,5 +21,65 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    gap: 24px;
+    > button
+    {
+      background-color: rgba(0,0,0,0);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      > h3
+      {
+        font-size: 19px;
+        font-weight: bold;
+        cursor: pointer;
+        padding: 0 16px;
+        transition: 300ms color;
+      }
+      > div
+      {
+        width: 100%;
+        border-radius: 2px;
+        height: 2px;
+        transition: 300ms background-color;
+      }
+    }
+  }
+}
+
+.Active
+{
+  > h3
+  {
+    color: var(--text-blue);
+  }
+  > div
+  {
+    background-color: var(--text-blue);
+  }
+}
+
+.Passive
+{
+  > h3
+  {
+    color: var(--text-base);
+  }
+  > div
+  {
+    background-color: rgba(0,0,0,0);
+    &:hover
+    {
+      background-color: var(--text-base);
+    }
+  }
+  &:hover
+  {
+    > div
+    {
+      background-color: var(--text-base);
+    }
   }
 }
